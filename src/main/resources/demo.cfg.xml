@@ -1,0 +1,26 @@
+<!DOCTYPE hibernate-configuration PUBLIC
+	"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+	<session-factory>
+        <property name="hibernate.connection.username">rabbit</property>
+        <property name="hibernate.connection.password">rabb1T</property>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost/hsdemo_dryrun</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
+
+        <!--<property name="hibernate.search.default.directory_provider">org.hibernate.search.store.FSMasterDirectoryProvider</property>
+        <property name="hibernate.search.default.refresh">120</property>
+
+        <property name="hibernate.search.default.indexBase">/Users/berinle/tmp/lucenedir/hsdemo</property>
+        <property name="hibernate.search.default.sourceBase">/Users/berinle/tmp/mnt/share</property>-->
+
+
+        <mapping class="com.jrock.hsdemo.Movie"/>
+        <mapping class="com.jrock.hsdemo.Actor"/>
+        <mapping class="com.jrock.hsdemo.Address"/>
+
+	</session-factory>
+</hibernate-configuration>

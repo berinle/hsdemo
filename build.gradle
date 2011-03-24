@@ -1,0 +1,38 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+
+group = "hsdemo"
+version = "1.0"
+
+repositories {
+    flatDir dirs:['lib']
+	mavenCentral()
+	mavenRepo urls:"http://repository.jboss.org/nexus/content/groups/public-jboss/"
+}
+
+task init << {
+	sourceSets.all*.java.srcDirs*.each { it.mkdirs() }
+	sourceSets.all*.resources.srcDirs*.each { it.mkdirs() }
+}
+
+task wrapper(type: Wrapper){
+    gradleVersion = '0.9-rc-3'
+}
+
+task dryRun(dependsOn: 'classes') <<  {
+    ant.java(classname: 'index_builder', fork:true,
+    classpath: "${sourceSets.main.runtimeClasspath.asPath}",
+    jvmArgs:"-XX:MaxPermSize=128m -XX:PermSize=128m -Xms512m -Xmx2048m")
+}
+
+defaultTasks 'jar'
+
+
+dependencies {
+	compile "org.hibernate:hibernate-search:3.3.0.Final"
+	compile "log4j:log4j:1.2.16@jar"
+    compile "org.slf4j:slf4j-log4j12:1.6.1@jar"
+	compile "javassist:javassist:3.4.GA@jar"
+    compile 'hsqldb:hsqldb:1.8.0.10'
+    compile 'mysql:mysql-connector-java:5.1.14'
+}
